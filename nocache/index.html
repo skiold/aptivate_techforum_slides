@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>client side cache woes</title>
+  <meta charset="utf-8">
+  <meta name="description" content="client side cache woes">
+  <meta name="author" content="Adrian">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <hgroup class="auto-fadein">
+        <h1>client side cache woes</h1>
+        <h2>no defaults ~= bad defaults</h2>
+        <p>Adrian<br/></p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Big releases are a bad idea</h2>
+  </hgroup>
+  <article>
+    <p>Who owns the definition of stale content?
+...</p>
+
+<p><em>Browser defaults</em> : too many, too nasty</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>How to clean your client&#39;s cache</h2>
+  </hgroup>
+  <article>
+    <h3>tl;dr you can&#39;t</h3>
+
+<pre><code>FileETag None                # try to disable cache validators
+Header set Cache-Control &quot;no-cache, no-store&quot;
+Header set Pragma &quot;no-cache&quot; # corner cases, old browsers
+Header set Expires &quot;0&quot;       # corner cases, old browsers
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Aptivate cache survey</h2>
+  </hgroup>
+  <article>
+    <p>(<a href="http://3ieimpact.org">3ieimpact</a>,<a href="https://hub.caada.org.uk/crm/info.php">caada</a>,<a href="http://lin-cbmdb.aptivate.org">cbm</a>,<a href="http://cdkn.org">cdkn</a>,<a href="https://winners.youwin.org.ng">youwin M&amp;E</a>,<a href="http://econsensus.org">econsensus</a>, ...)</p>
+
+<h3>Django cache middleware</h3>
+
+<p>Enabled in most of our sites. Default values for <a href="https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-CACHE_MIDDLEWARE_SECONDS">CACHE_MIDDLEWARE_SECONDS</a></p>
+
+<pre><code>Cache-control: max-age=600
+</code></pre>
+
+<h3>http headers in apache</h3>
+
+<ul>
+<li>static content on django sites</li>
+</ul>
+
+<p>None of the services in the survey defines cache-control headers for static content.</p>
+
+<p>(<em>Browsers are free to set expires to infinity</em>)</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Leverage lowband for defaults</h2>
+  </hgroup>
+  <article>
+    <p>We are committed to deliver low-bandwidth products. Our
+sites perform well with little browser caching.</p>
+
+<ul>
+<li>Use <a href="https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-CACHE_MIDDLEWARE_SECONDS">default django caching times</a> (10min).</li>
+<li>Use <a href="https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-CACHE_MIDDLEWARE_SECONDS">default django caching times</a> for static content also (10min).</li>
+</ul>
+
+<h3>apache verbi gratia</h3>
+
+<p>This is safe for all our servers</p>
+
+<pre><code>FileETag MTime Size      # skip inodes in ETag by default. Helps with load-balancing
+Header set Cache-Control &quot;max-age=600, must-revalidate&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>
