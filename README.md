@@ -1,5 +1,4 @@
-
-A collection of slides for internal training and idea sharing at
+A [collection of slides](http://skiold.github.io/aptivate_techforum_slides/) for internal training and idea sharing at
 Aptivate.
 
 ## How to build foo
