@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Infra in a box</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Infra in a box">
+  <meta name="author" content="scyldinga">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <hgroup class="auto-fadein">
+        <h1>Infra in a box</h1>
+        <h2>Ye olde masterless puppet</h2>
+        <p>scyldinga<br/>human</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>A meaning for legacy</h2>
+  </hgroup>
+  <article>
+    <p>With our puppet 2.6 code you can ditch the puppetmaster.</p>
+
+<p>Enjoying living on legacy infra code.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Part list</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>ec2 credentials (eg subaccount of infrasec; ask!)</li>
+<li><a href="http://vagrantup.com">vagrant</a> + <a href="https://github.com/mitchellh/vagrant-aws">vagrant-aws</a></li>
+<li>a checkout of masterless-2.6 puppet git branch (see <a href="https://github.com/aptivate/stand-posters/tree/master/packer">stand-posters</a>)</li>
+<li><a href="https://github.com/aptivate/stand-posters/blob/master/packer/Vagrantfile">a sample vagrantfile</a></li>
+<li>hot beverage to sip while you wait</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>What do I get?</h2>
+  </hgroup>
+  <article>
+    <p>Aptivate default production configuration</p>
+
+<pre><code>node default {
+  include external_class
+
+  include django-server
+  include django-httpd-conf
+  include server::mysql
+}
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Tell me more</h2>
+  </hgroup>
+  <article>
+    <pre><code>grey-beard% export AWS_ACCESS_KEY=&quot;this_is_something_you_keep_secret&quot;
+grey-beard% export AWS_SECRET_KEY=&quot;hint_keep_it_secret&quot;
+grey-beard% vagrant up --provider=aws
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>
